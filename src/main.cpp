@@ -10,37 +10,31 @@
    step back efter körning
    Current limit
    Hastighet (PWM)
-
+   simulate command
    }
 
    LED?
-   Motor divare fram och bak (Servo?)
+   Motor divare fram och bak (Servo?) - Funkar. behöver bättre funktion
    command input (anväanda samma som den gamla?)
 
 
  */
-
-
-
-
-
-
-
 #include <Arduino.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <Adafruit_MCP4725.h>
 #include <Adafruit_INA219.h>
 #include <enc.h>
+#include <menu.h>
 
 
 
 
 
-void Motor1_enc_ISR();
-void Motor2_enc_ISR();
-void Display();
-//Pins:
+
+
+
+//Pins: Must be in the same .h file as they are used.
 
 int motor2_input1 = PA8;
 int motor2_input2 = PA10;
@@ -60,14 +54,16 @@ int runonce =12;
 int pulses =12;
 int motor2speed =0;
 
+
+//Prototypes:
+
 void Motor1_enc_ISR();
 void Motor2_enc_ISR();
 void GotCommand();
 void Rot_enc_ISR();
 void run();
+void Display();
 
-
-LiquidCrystal_I2C lcd(0x3f,20,4);
 Adafruit_MCP4725 dac;
 Adafruit_INA219 ina219;
 
@@ -218,22 +214,3 @@ void Display(/* arguments */) {
 
    }
  */
-
-
-
-
-void Menu(){
-
-
-        int marker = 0;
-        lcd.clear();
-        lcd.setCursor(0, 0);
-        lcd.print("    Main menu");
-        lcd.setCursor(1, 1);
-        lcd.print("Motor options");
-        lcd.setCursor(1, 2);
-        lcd.print("Input options");
-
-
-
-}
