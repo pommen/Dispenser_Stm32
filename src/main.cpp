@@ -26,13 +26,7 @@
 #include <Adafruit_INA219.h>
 #include <enc.h>
 #include <menu.h>
-
-
-
-
-
-
-
+#include <gotCommand.h>
 
 //Pins: Must be in the same .h file as they are used.
 
@@ -40,20 +34,18 @@ int motor2_input1 = PA8;
 int motor2_input2 = PA10;
 
 /*
-   int step_M1 = PA1;
-   int step_M2 = PA2;
-   int cmd_M1 = PA3;
-   int cmd_M2 = PA4;
+
  */
+int cmd_M1 = PB10;
+int cmd_M2 = PB11;
 
 
 //Golbals:
 
 int LCDUpdateTimer =0;
 int runonce =12;
-int pulses =12;
 int motor2speed =0;
-
+//int pulses =0;
 
 //Prototypes:
 
@@ -61,8 +53,11 @@ void Motor1_enc_ISR();
 void Motor2_enc_ISR();
 void GotCommand();
 void Rot_enc_ISR();
-void run();
+void run(int steps);
 void Display();
+int gotCommand_M1(int pin);
+int gotCommand_M2();
+
 
 Adafruit_MCP4725 dac;
 Adafruit_INA219 ina219;
@@ -77,6 +72,8 @@ void setup(){
         pinMode(rot_EncBTN, INPUT);
         pinMode(motor2_input1, PWM);
         pinMode(motor2_input2, PWM);
+        pinMode(cmd_M1, INPUT_PULLUP);
+        pinMode(cmd_M2, INPUT_PULLUP);
 
         lcd.init();            // initialize the lcd
         lcd.backlight();
@@ -104,6 +101,7 @@ void setup(){
         //analogWrite(motor2_input1, 150);
 
 }
+
 void loop(){
 
         if (millis() - LCDUpdateTimer >=100) {
@@ -112,20 +110,31 @@ void loop(){
         }
 
 
+        if (digitalRead(cmd_M1) == HIGH) {
+                pulses = gotCommand_M1(cmd_M1);
+                run(pulses);
+        }
+
+        /*
+           if (digitalRead(cmd_M2) == HIGH) {
+             pulses = gotCommand_M2(cmd_M2);
+             run(pulses);
+           }
+         */
         //motor2speed = rot_enc*100;
         if (motor2speed > 0) {
-                run();
+                run(pulses);
         }
 
 
 }
 
 
-void run(){
+void run(int steps){
         enc_Motor2 =0;
-        motor2speed=0;
+        motor2speed=20000;
 
-        while (enc_Motor2 > -10000) {
+        while (enc_Motor2 > -steps) {
 
                 if (millis() - LCDUpdateTimer >=100) {
                         Display();
@@ -145,7 +154,9 @@ void run(){
 
         pwmWrite(motor2_input1, 0);
         pwmWrite(motor2_input2, motor2speed);
-        while (enc_Motor2 < 10000) {
+
+
+        while (enc_Motor2 < steps) {
 
                 if (millis() - LCDUpdateTimer >=100) {
                         Display();
@@ -174,7 +185,7 @@ void Display(/* arguments */) {
         lcd.print(enc_Motor2);
         lcd.setCursor(10,3);
         lcd.print(motor2speed);
-        motor2speed = rot_enc*1000;
+        //  motor2speed = rot_enc*1000;
 
 /*
         if (enc_Motor2 != enc_Motor2_OLD && enc_Motor2 >=0) {
@@ -182,35 +193,3 @@ void Display(/* arguments */) {
         }
  */
 }
-/*
-   void GotCommand() {
-        while(digitalRead(cmd_M1)  == HIGH) {
-                if (runonce == 0) {
-                        Serial.println("got cmd, attaching interupt");
-                        attachInterrupt(0, count_pulses, RISING);
-                        runonce =1;
-                        pulses = 0;
-                        pixels.setPixelColor(0, pixels.Color(0,0,150));
-                        pixels.show(); // This sends the updated pixel color to the hardware.
-                }
-        }
-        lcd.print(pulses);
-        Serial.println(pulses);
-
-        gotCMD = true;
-        detachInterrupt(0);
-        Serial.println("interupt detached");
-        for (int i = 0; i < pulses; i++) {
-
-                pixels.setPixelColor(0, pixels.Color(0,0,150));
-                pixels.show();   // This sends the updated pixel color to the hardware.
-                delay(50);
-                pixels.setPixelColor(0, pixels.Color(0,0,0));
-                pixels.show();   // This sends the updated pixel color to the hardware.
-                delay(50);
-        }
-        run(pulses);
-   }
-
-   }
- */
