@@ -18,6 +18,13 @@
    command input (anväanda samma som den gamla?)
 
 
+
+   MAX 1.3V dac.
+   3.3/4096 = 0.000805664 vOLT/step
+   1,3v = 1613 STEPS
+   Divide by 3 i hardware?
+
+
  */
 #include <Arduino.h>
 #include <Wire.h>
@@ -32,7 +39,8 @@
 
 int motor2_input1 = PA8;
 int motor2_input2 = PA10;
-
+int motor1_input1 = PB8;
+int motor1_input2 = PB9;
 /*
 
  */
@@ -45,7 +53,14 @@ int cmd_M2 = PB11;
 int LCDUpdateTimer =0;
 int runonce =12;
 int motor2speed =0;
-//int pulses =0;
+int inaV[5];
+int inaA[5];
+int inaPointer=0;
+
+
+
+
+
 
 //Prototypes:
 
@@ -72,6 +87,9 @@ void setup(){
         pinMode(rot_EncBTN, INPUT);
         pinMode(motor2_input1, PWM);
         pinMode(motor2_input2, PWM);
+        pinMode(motor1_input1, PWM);
+        pinMode(motor1_input2, PWM);
+
         pinMode(cmd_M1, INPUT_PULLUP);
         pinMode(cmd_M2, INPUT_PULLUP);
 
@@ -95,9 +113,11 @@ void setup(){
         attachInterrupt(rot_EncA, Rot_enc_ISR, FALLING);
 
         LCDUpdateTimer =millis();
-        dac.setVoltage(4095/4, 0);
+        dac.setVoltage(1000, 0);
         pwmWrite(motor2_input1, 0);
         pwmWrite(motor2_input2, 0);
+        pwmWrite(motor1_input1, 0);
+        pwmWrite(motor1_input2, 0);
         //analogWrite(motor2_input1, 150);
 
 }
@@ -128,6 +148,9 @@ void loop(){
 
 
 }
+
+
+
 
 
 void run(int steps){
@@ -165,12 +188,30 @@ void run(int steps){
         }
         pwmWrite(motor2_input1, 0);
         pwmWrite(motor2_input2, 0);
+        Display();
+
         delay(2000);
+        pwmWrite(motor1_input1, 0);
+        pwmWrite(motor1_input2, motor2speed);
+
+        while (enc_Motor1 < steps) {
+
+                if (millis() - LCDUpdateTimer >=100) {
+                        Display();
+                        LCDUpdateTimer=millis();
+                }
+        }
+        pwmWrite(motor1_input1, 0);
+        pwmWrite(motor1_input2, 0);
+
+
+
+
+
         rot_enc=0;
         motor2speed=0;
 
 }
-
 
 void Display(/* arguments */) {
         lcd.setCursor(0, 1);
@@ -185,6 +226,9 @@ void Display(/* arguments */) {
         lcd.print(enc_Motor2);
         lcd.setCursor(10,3);
         lcd.print(motor2speed);
+        lcd.setCursor(0,3);
+        lcd.print(rot_enc);
+
         //  motor2speed = rot_enc*1000;
 
 /*
