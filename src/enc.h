@@ -1,14 +1,4 @@
 
-int motor1_Enc_A = PA6;
-int motor1_Enc_B = PA7;
-int rot_EncA = PA0;
-int rot_EncB = PA1;
-int rot_EncBTN = PA2;
-
-
-
-int motor2_Enc_A = PA3;
-int motor2_Enc_B = PA4;
 
 volatile int enc_Motor1 =0;
 volatile int rot_enc =0;

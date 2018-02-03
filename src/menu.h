@@ -1,11 +1,10 @@
 
 
-LiquidCrystal_I2C lcd(0x3f,20,4);
 
 void Menu(){
 
 
-        int marker = 0;
+        //  int marker = 0;
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print("    Main menu");
