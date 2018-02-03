@@ -26,14 +26,16 @@
 
 
  */
-#include <Arduino.h>
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include <Adafruit_MCP4725.h>
-#include <Adafruit_INA219.h>
-#include <enc.h>
-#include <menu.h>
-#include <gotCommand.h>
+    #include <Arduino.h>
+ #include <Wire.h>
+ #include <LiquidCrystal_I2C.h>
+ #include <Adafruit_MCP4725.h>
+ #include <Adafruit_INA219.h>
+
+
+Adafruit_MCP4725 dac;
+Adafruit_INA219 ina219;
+LiquidCrystal_I2C lcd(0x3f,20,4);
 
 //Pins: Must be in the same .h file as they are used.
 
@@ -41,11 +43,29 @@ int motor2_input1 = PA8;
 int motor2_input2 = PA10;
 int motor1_input1 = PB8;
 int motor1_input2 = PB9;
-/*
 
- */
-int cmd_M1 = PB10;
-int cmd_M2 = PB11;
+int step_M1 = PB10;
+int cmd_M1 = PB11;
+int step_M2 = PA11;
+int cmd_M2 = PA12;
+
+const int limitUpper_M1 = PB0;
+const int limitLower_M1= PB1;
+const int limitUpper_M2 = PB12;
+const int limitLower_M2 = PB13;
+
+const int out_M1 = PB15;
+const int out_M2 = PB14;
+
+int motor2_Enc_A = PA3;
+int motor2_Enc_B = PA4;
+int motor1_Enc_A = PA6;
+int motor1_Enc_B = PA7;
+int rot_EncA = PA0;
+int rot_EncB = PA1;
+int rot_EncBTN = PA2;
+
+
 
 
 //Golbals:
@@ -72,26 +92,49 @@ void run(int steps);
 void Display();
 int gotCommand_M1(int pin);
 int gotCommand_M2();
+void count_pulses();
 
 
-Adafruit_MCP4725 dac;
-Adafruit_INA219 ina219;
+
+//my owm files needs to be included last ????!??
+#include <enc.h>
+#include <menu.h>
+#include <gotCommand.h>
+
 
 void setup(){
         pinMode(motor1_Enc_A, INPUT);
         pinMode(motor1_Enc_B, INPUT);
         pinMode(motor2_Enc_A, INPUT);
         pinMode(motor2_Enc_B, INPUT);
+
         pinMode(rot_EncA, INPUT);
         pinMode(rot_EncB, INPUT);
         pinMode(rot_EncBTN, INPUT);
+
         pinMode(motor2_input1, PWM);
         pinMode(motor2_input2, PWM);
         pinMode(motor1_input1, PWM);
         pinMode(motor1_input2, PWM);
 
+
+        pwmWrite(motor2_input1, 0);
+        pwmWrite(motor2_input2, 0);
+        pwmWrite(motor1_input1, 0);
+        pwmWrite(motor1_input2, 0);
+
         pinMode(cmd_M1, INPUT_PULLUP);
         pinMode(cmd_M2, INPUT_PULLUP);
+        pinMode(step_M1, INPUT_PULLUP);
+        pinMode(step_M2, INPUT_PULLUP);
+        pinMode(limitUpper_M1, INPUT_PULLUP);
+        pinMode(limitLower_M1, INPUT_PULLUP);
+        pinMode(limitUpper_M2, INPUT_PULLUP);
+        pinMode(limitLower_M2, INPUT_PULLUP);
+
+        pinMode(out_M1, OUTPUT);
+        pinMode(out_M2, OUTPUT);
+
 
         lcd.init();            // initialize the lcd
         lcd.backlight();
@@ -114,11 +157,9 @@ void setup(){
 
         LCDUpdateTimer =millis();
         dac.setVoltage(1000, 0);
-        pwmWrite(motor2_input1, 0);
-        pwmWrite(motor2_input2, 0);
-        pwmWrite(motor1_input1, 0);
-        pwmWrite(motor1_input2, 0);
-        //analogWrite(motor2_input1, 150);
+
+        digitalWrite(out_M1, LOW);
+        digitalWrite(out_M2, LOW);
 
 }
 
@@ -130,11 +171,39 @@ void loop(){
         }
 
 
-        if (digitalRead(cmd_M1) == HIGH) {
+        if (digitalRead(cmd_M1) == LOW) {
                 pulses = gotCommand_M1(cmd_M1);
+
+                run(pulses);
+        }
+        if (digitalRead(cmd_M2) == LOW) {
+                pulses = gotCommand_M2(cmd_M2);
+
                 run(pulses);
         }
 
+
+
+        if (digitalRead(limitLower_M1) == LOW) {
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("limit Lower M1");
+        }
+        if (digitalRead(limitUpper_M1) == LOW) {
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("limit Upper M1");
+        }
+        if (digitalRead(limitLower_M2) == LOW) {
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("limit Lower M2");
+        }
+        if (digitalRead(limitUpper_M2) == LOW) {
+                lcd.clear();
+                lcd.setCursor(0, 0);
+                lcd.print("limit Upper M2");
+        }
         /*
            if (digitalRead(cmd_M2) == HIGH) {
              pulses = gotCommand_M2(cmd_M2);
@@ -169,7 +238,7 @@ void run(int steps){
         pwmWrite(motor2_input1, 0);
         pwmWrite(motor2_input2, 0);
         Display();
-        delay(2000);
+        delay(1000);
         lcd.clear();
 
         enc_Motor2=0;
@@ -190,7 +259,7 @@ void run(int steps){
         pwmWrite(motor2_input2, 0);
         Display();
 
-        delay(2000);
+        delay(1000);
         pwmWrite(motor1_input1, 0);
         pwmWrite(motor1_input2, motor2speed);
 
@@ -206,10 +275,18 @@ void run(int steps){
 
 
 
-
+        pulses =0;
 
         rot_enc=0;
         motor2speed=0;
+
+
+        digitalWrite(out_M1, HIGH);
+        digitalWrite(out_M2, HIGH);
+        delay(3000);
+        digitalWrite(out_M1, LOW);
+        digitalWrite(out_M2, LOW);
+
 
 }
 

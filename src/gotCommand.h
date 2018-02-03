@@ -1,37 +1,46 @@
-
-
 volatile int pulses =0;
-int step_M1 = PA1;
-int step_M2 = PA2;
 
-void count_pulses();
+
 
 
 int gotCommand_M1(int pin) {
         lcd.setCursor(0,0);
-        lcd.print("Got command");
+        lcd.print("Got command M1");
+        pulses = 0;
+
         attachInterrupt(step_M1, count_pulses, RISING);
 
-        while ( digitalRead(pin) == HIGH) {
+        while ( digitalRead(pin) == LOW) {
 
                 /* code */
         }
+        if (pulses > 0) {
+                lcd.print(" step1");
+        }
         detachInterrupt(step_M1);
-        lcd.setCursor(0,0);
-        lcd.print("Returning");
-        pulses = 5000;
+
+        pulses = 500;
+        //  pulses = pulses *100;
         return pulses;
 }
 
 int gotCommand_M2(int pin) {
+        lcd.setCursor(0,0);
+        lcd.print("Got command M2");
+        pulses = 0;
+
         attachInterrupt(step_M2, count_pulses, RISING);
 
-        while ( digitalRead(pin) == HIGH) {
+        while ( digitalRead(pin) == LOW) {
 
                 /* code */
         }
-
+        if (pulses > 0) {
+                lcd.print(" step2");
+        }
         detachInterrupt(step_M2);
+        pulses = 500;
+
         return pulses;
 }
 
