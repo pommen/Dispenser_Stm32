@@ -204,11 +204,14 @@ void loop(){
                 lcd.setCursor(0, 0);
                 lcd.print("limit Upper M2");
         }
+<<<<<<< HEAD
         if (digitalRead(rot_EncBTN) == HIGH) {
                 lcd.clear();
                 lcd.setCursor(0, 0);
                 lcd.print("Rot enc");
         }
+=======
+>>>>>>> 9e81a6c17eb11c91ad0e1a3a3a5e9efb47bcbe76
         /*
            if (digitalRead(cmd_M2) == HIGH) {
              pulses = gotCommand_M2(cmd_M2);
