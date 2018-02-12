@@ -140,13 +140,13 @@ Text GLabel 2800 2400 0    60   Input ~ 0
 SDA
 Text GLabel 2800 2300 0    60   Input ~ 0
 SCL
-Text GLabel 1250 2450 0    60   Input ~ 0
+Text GLabel 1250 2350 0    60   Input ~ 0
 Motor_Input_1A
-Text GLabel 1250 2700 0    60   Input ~ 0
+Text GLabel 1200 3050 0    60   Input ~ 0
 Motor_Input_1B
-Text GLabel 1250 1400 0    60   Input ~ 0
-Motor_Input_2A
 Text GLabel 1250 1650 0    60   Input ~ 0
+Motor_Input_2A
+Text GLabel 1250 1400 0    60   Input ~ 0
 Motor_Input_2B
 Text GLabel 4550 1600 2    60   Input ~ 0
 Limit_LOWER_M1
@@ -211,23 +211,23 @@ Wire Wire Line
 $Comp
 L 74HC14 U10
 U 1 1 5A67D171
-P 1700 2450
-F 0 "U10" H 1850 2550 50  0000 C CNN
-F 1 "74HC14" H 1900 2350 50  0000 C CNN
-F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 1700 2450 50  0001 C CNN
-F 3 "" H 1700 2450 50  0001 C CNN
-	1    1700 2450
+P 1650 3050
+F 0 "U10" H 1800 3150 50  0000 C CNN
+F 1 "74HC14" H 1850 2950 50  0000 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 1650 3050 50  0001 C CNN
+F 3 "" H 1650 3050 50  0001 C CNN
+	1    1650 3050
 	-1   0    0    1   
 $EndComp
 $Comp
 L 74HC14 U10
 U 2 1 5A67D1B2
-P 1700 2700
-F 0 "U10" H 1850 2800 50  0000 C CNN
-F 1 "74HC14" H 1900 2600 50  0000 C CNN
-F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 1700 2700 50  0001 C CNN
-F 3 "" H 1700 2700 50  0001 C CNN
-	2    1700 2700
+P 1700 2350
+F 0 "U10" H 1850 2450 50  0000 C CNN
+F 1 "74HC14" H 1900 2250 50  0000 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 1700 2350 50  0001 C CNN
+F 3 "" H 1700 2350 50  0001 C CNN
+	2    1700 2350
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -852,17 +852,11 @@ Wire Wire Line
 Wire Wire Line
 	2150 1600 2150 1650
 Wire Wire Line
-	2800 2500 2350 2500
+	2350 2500 2800 2500
 Wire Wire Line
-	2350 2500 2350 2450
+	2350 2350 2350 2500
 Wire Wire Line
-	2350 2450 2150 2450
-Wire Wire Line
-	2800 2600 2300 2600
-Wire Wire Line
-	2300 2600 2300 2700
-Wire Wire Line
-	2300 2700 2150 2700
+	2100 2600 2800 2600
 $Comp
 L VDD #PWR056
 U 1 1 5A7C31A2
@@ -876,4 +870,8 @@ F 3 "" H 10500 2300 50  0001 C CNN
 $EndComp
 Text GLabel 2800 1900 0    60   Input ~ 0
 LED
+Wire Wire Line
+	2150 2350 2350 2350
+Wire Wire Line
+	2100 3050 2100 2600
 $EndSCHEMATC

@@ -877,8 +877,8 @@ Wire Wire Line
 Wire Wire Line
 	1850 3450 1850 3700
 Wire Wire Line
-	1850 3700 1550 3700
-Text GLabel 1850 3700 2    60   Input ~ 0
+	1550 3700 2100 3700
+Text GLabel 2100 3700 2    60   Input ~ 0
 +24Logic
 Text GLabel 2200 6550 0    60   Input ~ 0
 +24Logic
@@ -1012,4 +1012,5 @@ Wire Wire Line
 	9200 4600 9200 4650
 Wire Wire Line
 	9200 4900 9200 4850
+Connection ~ 1850 3700
 $EndSCHEMATC
