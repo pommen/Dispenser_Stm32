@@ -32,7 +32,6 @@ LIBS:valves
 LIBS:Peters
 LIBS:L298N
 LIBS:WS2812B
-LIBS:a4973
 LIBS:a3968
 LIBS:lm2675
 LIBS:adp3338akcz
@@ -42,7 +41,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 5
+Sheet 2 6
 Title ""
 Date ""
 Rev ""
