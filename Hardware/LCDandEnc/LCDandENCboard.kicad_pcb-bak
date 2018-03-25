@@ -5,7 +5,7 @@
     (no_connects 8)
     (area 125.25 66.299999 163.925 124.494048)
     (thickness 1.6)
-    (drawings 4)
+    (drawings 5)
     (tracks 181)
     (zones 0)
     (modules 21)
@@ -64,7 +64,7 @@
     (aux_axis_origin 125.425 119.1)
     (visible_elements 7FFFEFFF)
     (pcbplotparams
-      (layerselection 0x01000_00000001)
+      (layerselection 0x01200_00000001)
       (usegerberextensions false)
       (excludeedgelayer true)
       (linewidth 0.100000)
@@ -934,6 +934,9 @@
       (net 13 +5V))
   )
 
+  (gr_text "LCD/ROTENC\n25/3-18" (at 156.75 76.25 90) (layer Cmts.User)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
   (gr_line (start 125.4 66.4) (end 163.3 66.375) (layer Edge.Cuts) (width 0.15))
   (gr_line (start 125.4 119.125) (end 125.4 66.4) (layer Edge.Cuts) (width 0.15))
   (gr_line (start 163.3 119.1) (end 125.35 119.125) (layer Edge.Cuts) (width 0.15))
