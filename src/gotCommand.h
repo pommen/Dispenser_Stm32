@@ -19,7 +19,7 @@ int gotCommand_M1(int pin) {
         }
         detachInterrupt(step_M1);
 
-        pulses = 500;
+        //pulses = 500;
         //  pulses = pulses *100;
         return pulses;
 }

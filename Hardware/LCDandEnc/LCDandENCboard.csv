@@ -1,0 +1,32 @@
+Title,
+Revision,
+Date,
+Generated,03/25/18 12:37:42
+Company,
+Comment 1,
+Comment 2,
+Comment 3,
+Comment 4,
+Total Parts,21
+Total Unique Parts,11
+
+
+
+Ref,Qty,Value,Footprint,Datasheet,
+C1 C2 C3 ,3,0.1uF,Capacitors_SMD:C_0805_HandSoldering,
+C4 ,1,1u,Capacitors_SMD:C_0805_HandSoldering,
+C5 ,1,100n,Capacitors_SMD:C_0805_HandSoldering,
+D1 D2 D3 ,3,1m4148,Diodes_SMD:D_MiniMELF_Handsoldering,
+J1 ,1,Connection to mainBoard,Pin_Headers:Pin_Header_Straight_1x07_Pitch2.54mm,
+J2 ,1,LCD4x20,Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm,
+R1 R2 R3 R4 R5 R6 ,6,10K,Resistors_SMD:R_0805_HandSoldering,
+ROT1 ,1,ROTARY-ENCODER,Libs:ROTARY-ENCODER-Ebay,
+U1 ,1,74HC14,Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm,
+U2 ,1,XC6206P332MR,TO_SOT_Packages_SMD:TSOT-23_HandSoldering,
+U11 U12 ,2,0,1U,Capacitors_SMD:C_0805_HandSoldering,
+
+
+
+
+BOM made with KICAD_BOM_WIZARD (https://github.com/HashDefineElectronics/KiCad_BOM_Wizard.git)
+Generated 03/25/18 12:37:42

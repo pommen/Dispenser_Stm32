@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="D">
   <design>
-    <source>C:/Users/LillaHunden/Documents/kiCAD/Dispenser_Stm32-master/Hardware/dispenser.sch</source>
-    <date>03/19/18 17:51:11</date>
+    <source>C:/Users/LillaHunden/Documents/GitHub/Dispenser_Stm32/Hardware/dispenser.sch</source>
+    <date>03/25/18 12:38:16</date>
     <tool>Eeschema 4.0.7</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -772,6 +772,8 @@
       <aliases>
         <alias>ina219</alias>
       </aliases>
+      <description>current monitor</description>
+      <docs>http://www.ti.com/lit/ds/symlink/ina219.pdf</docs>
       <fields>
         <field name="Reference">U</field>
         <field name="Value">INA219</field>
@@ -837,6 +839,8 @@
       </pins>
     </libpart>
     <libpart lib="Peters" part="MCP4725">
+      <description>MCP4725, Single 12-bit Digital to Analog Converter, I2CInterface, SOT23-5</description>
+      <docs>http://ww1.microchip.com/downloads/en/DeviceDoc/22039d.pdf</docs>
       <footprints>
         <fp>SOT23</fp>
       </footprints>
@@ -940,8 +944,11 @@
     </libpart>
   </libparts>
   <libraries>
+    <library logical="Peters">
+      <uri>C:\Users\LillaHunden\Documents\GitHub\Dispenser_Stm32\Hardware\kicad_libs\Libs\Peters.lib</uri>
+    </library>
     <library logical="dispenser-rescue">
-      <uri>C:\Users\LillaHunden\Documents\kiCAD\Dispenser_Stm32-master\Hardware\dispenser-rescue.lib</uri>
+      <uri>C:\Users\LillaHunden\Documents\GitHub\Dispenser_Stm32\Hardware\dispenser-rescue.lib</uri>
     </library>
     <library logical="device">
       <uri>C:\Program Files\KiCad\share\kicad\library\device.lib</uri>
@@ -949,26 +956,23 @@
     <library logical="conn">
       <uri>C:\Program Files\KiCad\share\kicad\library\conn.lib</uri>
     </library>
+    <library logical="adp3338akcz">
+      <uri>C:\Users\LillaHunden\Documents\GitHub\Dispenser_Stm32\Hardware\kicad_libs\Libs\adp3338akcz.lib</uri>
+    </library>
+    <library logical="bluepill_breakouts">
+      <uri>C:\Users\LillaHunden\Documents\GitHub\Dispenser_Stm32\Hardware\kicad_libs\Libs\bluepill_breakouts.lib</uri>
+    </library>
+    <library logical="WS2812B">
+      <uri>C:\Users\LillaHunden\Documents\GitHub\Dispenser_Stm32\Hardware\kicad_libs\Libs\WS2812B.lib</uri>
+    </library>
+    <library logical="a3968">
+      <uri>C:\Users\LillaHunden\Documents\GitHub\Dispenser_Stm32\Hardware\kicad_libs\Libs\a3968.lib</uri>
+    </library>
     <library logical="74xx">
       <uri>C:\Program Files\KiCad\share\kicad\library\74xx.lib</uri>
     </library>
     <library logical="opto">
       <uri>C:\Program Files\KiCad\share\kicad\library\opto.lib</uri>
-    </library>
-    <library logical="Peters">
-      <uri>C:\Users\LillaHunden\Documents\kiCAD\Libs\Libs\Peters.lib</uri>
-    </library>
-    <library logical="adp3338akcz">
-      <uri>C:\Users\LillaHunden\Documents\kiCAD\Dispenser_Stm32-master\Hardware\kicad_libs\Libs\adp3338akcz.lib</uri>
-    </library>
-    <library logical="bluepill_breakouts">
-      <uri>C:\Users\LillaHunden\Documents\kiCAD\Dispenser_Stm32-master\Hardware\kicad_libs\Libs\bluepill_breakouts.lib</uri>
-    </library>
-    <library logical="WS2812B">
-      <uri>C:\Users\LillaHunden\Documents\kiCAD\Libs\Libs\WS2812B.lib</uri>
-    </library>
-    <library logical="a3968">
-      <uri>C:\Users\LillaHunden\Documents\kiCAD\Dispenser_Stm32-master\Hardware\kicad_libs\Libs\a3968.lib</uri>
     </library>
   </libraries>
   <nets>

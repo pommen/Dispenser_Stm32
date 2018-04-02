@@ -1,0 +1,59 @@
+Title,
+Revision,
+Date,
+Generated,03/25/18 12:38:16
+Company,
+Comment 1,
+Comment 2,
+Comment 3,
+Comment 4,
+Total Parts,61
+Total Unique Parts,38
+
+
+
+Ref,Qty,Value,Footprint,Datasheet,Description,MP,Price,
+C2 C4 ,2,0.1uF,Capacitors_SMD:C_0805_HandSoldering,, , , 
+C9 ,1,680pF,Capacitors_SMD:C_0805_HandSoldering,, , , 
+C10 ,1,47uF,Capacitors_Tantalum_SMD:CP_Tantalum_Case-C_EIA-6032-28_Hand,, , , 
+C11 C12 ,2,4.7uF tant,Capacitors_Tantalum_SMD:CP_Tantalum_Case-C_EIA-6032-28_Hand,, , , 
+C13 ,1,10nf,Capacitors_SMD:C_0805_HandSoldering,, , , 
+C14 ,1,68Uf,Capacitors_SMD:CP_Elec_10x10,, , , 
+C15 ,1,120Uf,Capacitors_SMD:CP_Elec_10x10,, , , 
+C16 C17 ,2,1u,Capacitors_SMD:C_0805_HandSoldering,, , , 
+D1 ,1,WS2812B,Libs:WS2812B,Adafruit Industries,Intelligent Control Led Integrated Light Source Pack Of 10,WS2812B,5.56 USD
+D2 D4 ,2,LED,LEDs:LED_0805_HandSoldering,, , , 
+D6 ,1,1m4148,Diodes_SMD:D_MiniMELF_Handsoldering,, , , 
+D8 ,1,1n4148,Diodes_SMD:D_MiniMELF_Handsoldering,, , , 
+D13 ,1,D,Diodes_SMD:D_SMB-SMC_Universal_Handsoldering,, , , 
+D14 ,1,D_Schottky,Diodes_SMD:D_SMC_Handsoldering,, , , 
+F1 ,1,500mA,Fuse_Holders_and_Fuses:Fuse_TE5_Littlefuse-395Series,, , , 
+J1 ,1,RJ45,Connectors:RJ45_8,, , , 
+J2 ,1,LCD_and_RotEnc,Pin_Headers:Pin_Header_Straight_1x07_Pitch2.54mm,, , , 
+J4 ,1,Motor1_con,Libs:Dsub9,, , , 
+J5 ,1,Vin,Connectors_Terminal_Blocks:TerminalBlock_bornier-2_P5.08mm,, , , 
+L1 ,1,47uH,Inductors_SMD:L_7.3x7.3_H4.5,, , , 
+R3 R5 R29 ,3,1K,Resistors_SMD:R_0805_HandSoldering,, , , 
+R6 ,1,120R,Resistors_SMD:R_0805_HandSoldering,, , , 
+R8 R10 R12 R14 ,4,10K,Resistors_SMD:R_0805_HandSoldering,, , , 
+R16 R17 ,2,2K,Resistors_SMD:R_0805_HandSoldering,, , , 
+R24 ,1,0,1R,Resistors_SMD:R_1206_HandSoldering,, , , 
+R25 ,1,56K,Resistors_SMD:R_0805_HandSoldering,, , , 
+R26 R27 ,2,0R5,Resistors_SMD:R_0805_HandSoldering,, , , 
+R28 ,1,3K,Resistors_SMD:R_0805_HandSoldering,, , , 
+U1 U3 U5 ,3,PC817,Libs:817opto,, , , 
+U8 U15 ,2,74HC14,Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm,, , , 
+U9 ,1,BluePill_STM32F103C,Libs:BluePill_STM32F103C,www.rogerclark.net, , , 
+U11 U12 U13 U14 U15 U18 U19 U110 U111 U112 ,10,0,1U,Capacitors_SMD:C_0805_HandSoldering,, , , 
+U12 ,1,MCP4725,TO_SOT_Packages_SMD:SOT-23-6_Handsoldering,, , , 
+U13 ,1,ina219,TO_SOT_Packages_SMD:SOT-23-8_Handsoldering,http://www.ti.com/lit/ds/symlink/ina219.pdf, , , 
+U14 ,1,A3968,Housings_SOIC:SOIC-16W_7.5x10.3mm_Pitch1.27mm,file:///C:/Users/pr/Downloads/A3968-Datasheet.pdf, , , 
+U16 ,1,LM2675,Housings_SOIC:SO-8_5.3x6.2mm_Pitch1.27mm,, , , 
+U17 ,1,ADP3338AKCZ,TO_SOT_Packages_SMD:SOT-223-3_TabPin2,http://www.analog.com/media/en/technical-documentation/data-sheets/ADP3338.pdf, , , 
+U113 ,1,0.1uf,Capacitors_SMD:C_0805_HandSoldering,, , , 
+
+
+
+
+BOM made with KICAD_BOM_WIZARD (https://github.com/HashDefineElectronics/KiCad_BOM_Wizard.git)
+Generated 03/25/18 12:38:16

@@ -1,4 +1,4 @@
-update=02/13/18 21:48:48
+update=03/25/18 11:21:12
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,6 +23,8 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
+[general]
+version=1
 [eeschema]
 version=1
 LibDir=
@@ -69,5 +71,4 @@ LibName39=C:/Users/LillaHunden/Documents/kiCAD/Dispenser_Stm32-master/Hardware/k
 LibName40=C:/Users/LillaHunden/Documents/kiCAD/Dispenser_Stm32-master/Hardware/kicad_libs/Libs/Peter-bckup
 LibName41=C:/Users/LillaHunden/Documents/kiCAD/Dispenser_Stm32-master/Hardware/kicad_libs/Libs/Peters
 LibName42=C:/Users/LillaHunden/Documents/kiCAD/Dispenser_Stm32-master/Hardware/kicad_libs/Libs/WS2812B
-[general]
-version=1
+LibName43=C:/Users/LillaHunden/Documents/kiCAD/Libs/Libs/Peters

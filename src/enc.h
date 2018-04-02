@@ -1,5 +1,3 @@
-
-
 volatile int enc_Motor1 =0;
 volatile int rot_enc =0;
 volatile int enc_Motor2 =0;
