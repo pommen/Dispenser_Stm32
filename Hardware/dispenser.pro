@@ -1,4 +1,4 @@
-update=02/13/18 19:46:26
+update=03/25/18 11:17:25
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,16 +23,6 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=Pcbnew
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
 [general]
 version=1
 [eeschema]
@@ -77,3 +67,13 @@ LibName35=C:/Users/pr/Documents/kicad/Gluedispenser-master/Hardware/kicad_libs/L
 LibName36=C:/Users/pr/Documents/kicad/Gluedispenser-master/Hardware/kicad_libs/Libs/lm2675
 LibName37=C:/Users/pr/Documents/kicad/Gluedispenser-master/Hardware/kicad_libs/Libs/adp3338akcz
 LibName38=kicad_libs/Libs/bluepill_breakouts
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
