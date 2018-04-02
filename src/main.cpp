@@ -31,39 +31,52 @@
  #include <LiquidCrystal_I2C.h>
  #include <Adafruit_MCP4725.h>
  #include <Adafruit_INA219.h>
+#include <Adafruit_NeoPixel-ANDnXOR.h>
+
+//Pins: Must be in the same .h file as they are used.
+
+//int motor2_input1 = PA8;
+//int motor2_input2 = PA10;
+int motor1_input1 = PB8;
+int motor1_input2 = PB9;
+
+int step_M1 = PB11;
+int cmd_M1 = PB10;
+//int step_M2 = PA11;
+//int cmd_M2 = PA12;
+
+const int limitUpper_M1 = PB0;
+const int limitLower_M1= PB1;
+//const int limitUpper_M2 = PB12;
+//const int limitLower_M2 = PB13;
+
+const int out_M1 = PB15;
+//const int out_M2 = PB14;
+
+const int LED = PA15;
+
+//int motor2_Enc_A = PA3;
+//int motor2_Enc_B = PA4;
+int motor1_Enc_A = PA6;
+int motor1_Enc_B = PA7;
+int rot_EncA = PA0;
+int rot_EncB = PA1;
+int rot_EncBTN = PA2;
 
 
 Adafruit_MCP4725 dac;
 Adafruit_INA219 ina219;
 LiquidCrystal_I2C lcd(0x3f,20,4);
 
-//Pins: Must be in the same .h file as they are used.
 
-int motor2_input1 = PA8;
-int motor2_input2 = PA10;
-int motor1_input1 = PB8;
-int motor1_input2 = PB9;
-
-int step_M1 = PB10;
-int cmd_M1 = PB11;
-int step_M2 = PA11;
-int cmd_M2 = PA12;
-
-const int limitUpper_M1 = PB0;
-const int limitLower_M1= PB1;
-const int limitUpper_M2 = PB12;
-const int limitLower_M2 = PB13;
-
-const int out_M1 = PB15;
-const int out_M2 = PB14;
-
-int motor2_Enc_A = PA3;
-int motor2_Enc_B = PA4;
-int motor1_Enc_A = PA6;
-int motor1_Enc_B = PA7;
-int rot_EncA = PA0;
-int rot_EncB = PA1;
-int rot_EncBTN = PA2;
+// Parameter 1 = number of pixels in strip
+// Parameter 2 = pin number (most are valid)
+// Parameter 3 = pixel type flags, add together as needed:
+//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
+//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
+//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
+//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(1, LED, NEO_GRB + NEO_KHZ800);
 
 
 
@@ -96,45 +109,46 @@ void count_pulses();
 
 
 
-//my owm files needs to be included last ????!??
+//my owm files needs to be included last ????!?? <- after pin declaration
 #include <enc.h>
 #include <menu.h>
 #include <gotCommand.h>
 
 
 void setup(){
+
         pinMode(motor1_Enc_A, INPUT);
         pinMode(motor1_Enc_B, INPUT);
-        pinMode(motor2_Enc_A, INPUT);
-        pinMode(motor2_Enc_B, INPUT);
+        //pinMode(motor2_Enc_A, INPUT);
+        //pinMode(motor2_Enc_B, INPUT);
 
         pinMode(rot_EncA, INPUT);
         pinMode(rot_EncB, INPUT);
         pinMode(rot_EncBTN, INPUT);
 
-        pinMode(motor2_input1, PWM);
-        pinMode(motor2_input2, PWM);
+        //  pinMode(motor2_input1, PWM);
+        //pinMode(motor2_input2, PWM);
         pinMode(motor1_input1, PWM);
         pinMode(motor1_input2, PWM);
 
 
-        pwmWrite(motor2_input1, 0);
-        pwmWrite(motor2_input2, 0);
+        //  pwmWrite(motor2_input1, 0);
+        //pwmWrite(motor2_input2, 0);
         pwmWrite(motor1_input1, 0);
         pwmWrite(motor1_input2, 0);
 
         pinMode(cmd_M1, INPUT_PULLUP);
-        pinMode(cmd_M2, INPUT_PULLUP);
+        //  pinMode(cmd_M2, INPUT_PULLUP);
         pinMode(step_M1, INPUT_PULLUP);
-        pinMode(step_M2, INPUT_PULLUP);
+        //pinMode(step_M2, INPUT_PULLUP);
         pinMode(limitUpper_M1, INPUT_PULLUP);
         pinMode(limitLower_M1, INPUT_PULLUP);
-        pinMode(limitUpper_M2, INPUT_PULLUP);
-        pinMode(limitLower_M2, INPUT_PULLUP);
+        //pinMode(limitUpper_M2, INPUT_PULLUP);
+        //pinMode(limitLower_M2, INPUT_PULLUP);
 
         pinMode(out_M1, OUTPUT);
-        pinMode(out_M2, OUTPUT);
-
+        //  pinMode(out_M2, OUTPUT);
+        pinMode(LED, OUTPUT);
 
         lcd.init();            // initialize the lcd
         lcd.backlight();
@@ -152,14 +166,33 @@ void setup(){
         lcd.print("BusV    Bus Current");
 
         attachInterrupt(motor1_Enc_A, Motor1_enc_ISR, FALLING);
-        attachInterrupt(motor2_Enc_A, Motor2_enc_ISR, FALLING);
+        //attachInterrupt(motor2_Enc_A, Motor2_enc_ISR, FALLING);
         attachInterrupt(rot_EncA, Rot_enc_ISR, FALLING);
 
         LCDUpdateTimer =millis();
         dac.setVoltage(1000, 0);
 
         digitalWrite(out_M1, LOW);
-        digitalWrite(out_M2, LOW);
+        //digitalWrite(out_M2, LOW);
+
+        pixels.begin();
+        pixels.show(); // Initialize all pixels to 'off'
+
+        for (size_t i = 0; i < 50; i++) {
+                pixels.setPixelColor(0, pixels.Color(-i,i,-i));
+                pixels.show();        // This sends the updated pixel color to the hardware.
+                delay(3);
+        }
+        for (size_t i = 0; i < 50; i++) {
+                pixels.setPixelColor(0, pixels.Color(-i,-i,i));
+                pixels.show();        // This sends the updated pixel color to the hardware.
+                delay(3);
+        }
+        for (size_t i = 0; i < 50; i++) {
+                pixels.setPixelColor(0, pixels.Color(i,-i,-i));
+                pixels.show();        // This sends the updated pixel color to the hardware.
+                delay(3);
+        }
 
 }
 
@@ -171,18 +204,11 @@ void loop(){
         }
 
 
-        if (digitalRead(cmd_M1) == LOW) {
+        if (digitalRead(cmd_M1) == HIGH) {
                 pulses = gotCommand_M1(cmd_M1);
 
                 run(pulses);
         }
-        if (digitalRead(cmd_M2) == LOW) {
-                pulses = gotCommand_M2(cmd_M2);
-
-                run(pulses);
-        }
-
-
 
         if (digitalRead(limitLower_M1) == LOW) {
                 lcd.clear();
@@ -194,24 +220,12 @@ void loop(){
                 lcd.setCursor(0, 0);
                 lcd.print("limit Upper M1");
         }
-        if (digitalRead(limitLower_M2) == LOW) {
-                lcd.clear();
-                lcd.setCursor(0, 0);
-                lcd.print("limit Lower M2");
-        }
-        if (digitalRead(limitUpper_M2) == LOW) {
-                lcd.clear();
-                lcd.setCursor(0, 0);
-                lcd.print("limit Upper M2");
-        }
-<<<<<<< HEAD
+
         if (digitalRead(rot_EncBTN) == HIGH) {
                 lcd.clear();
                 lcd.setCursor(0, 0);
                 lcd.print("Rot enc");
         }
-=======
->>>>>>> 9e81a6c17eb11c91ad0e1a3a3a5e9efb47bcbe76
         /*
            if (digitalRead(cmd_M2) == HIGH) {
              pulses = gotCommand_M2(cmd_M2);
@@ -231,41 +245,6 @@ void loop(){
 
 
 void run(int steps){
-        enc_Motor2 =0;
-        motor2speed=20000;
-
-        while (enc_Motor2 > -steps) {
-
-                if (millis() - LCDUpdateTimer >=100) {
-                        Display();
-                        LCDUpdateTimer=millis();
-                }
-                pwmWrite(motor2_input1, motor2speed);
-                pwmWrite(motor2_input2, 0);
-        }
-        pwmWrite(motor2_input1, 0);
-        pwmWrite(motor2_input2, 0);
-        Display();
-        delay(1000);
-        lcd.clear();
-
-        enc_Motor2=0;
-        Display();
-
-        pwmWrite(motor2_input1, 0);
-        pwmWrite(motor2_input2, motor2speed);
-
-
-        while (enc_Motor2 < steps) {
-
-                if (millis() - LCDUpdateTimer >=100) {
-                        Display();
-                        LCDUpdateTimer=millis();
-                }
-        }
-        pwmWrite(motor2_input1, 0);
-        pwmWrite(motor2_input2, 0);
-        Display();
 
         delay(1000);
         pwmWrite(motor1_input1, 0);
@@ -290,10 +269,8 @@ void run(int steps){
 
 
         digitalWrite(out_M1, HIGH);
-        digitalWrite(out_M2, HIGH);
         delay(3000);
         digitalWrite(out_M1, LOW);
-        digitalWrite(out_M2, LOW);
 
 
 }

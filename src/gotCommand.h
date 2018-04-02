@@ -24,25 +24,7 @@ int gotCommand_M1(int pin) {
         return pulses;
 }
 
-int gotCommand_M2(int pin) {
-        lcd.setCursor(0,0);
-        lcd.print("Got command M2");
-        pulses = 0;
 
-        attachInterrupt(step_M2, count_pulses, RISING);
-
-        while ( digitalRead(pin) == LOW) {
-
-                /* code */
-        }
-        if (pulses > 0) {
-                lcd.print(" step2");
-        }
-        detachInterrupt(step_M2);
-        pulses = 500;
-
-        return pulses;
-}
 
 void count_pulses(){
         pulses++;
