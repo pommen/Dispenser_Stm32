@@ -380,8 +380,17 @@ void PIDMenu(){
         lcd.setCursor(0,marker);
         lcd.print("*");
         //delay(200);
+<<<<<<< HEAD
+=======
 
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
 
+        while (leave != 1) {
+                if (oldRot_enc != rot_enc) {
+                        lastmarker = marker;
+                        marker = markertemp - rot_enc;
+
+<<<<<<< HEAD
         while (leave != 1) {
                 if (oldRot_enc != rot_enc) {
                         lastmarker = marker;
@@ -392,6 +401,13 @@ void PIDMenu(){
                                 markertemp = rot_enc;
                         }
 
+=======
+                        if (marker < 1) { // ser till att markinger inte går ut i sidorna negativt
+                                marker=1;
+                                markertemp = rot_enc;
+                        }
+
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
                         if (marker > 4) { // ser till att markinger inte går ut i sidorna posetivt
                                 marker=4;
                                 markertemp = rot_enc +4;
@@ -438,6 +454,7 @@ void PIDMenu(){
                                         if (digitalRead(rot_EncBTN) == HIGH && btnLetGo ==1 ) {
                                                 //EEprom write new value if its new. then break
                                                 if (newValue != value) {
+<<<<<<< HEAD
                                                         EEPROM.write(valueAddress, newValue *10);
                                                         Kp = EEPROM.read(Kp_promAddress) /10;
                                                         justReturned =1;
@@ -445,6 +462,11 @@ void PIDMenu(){
                                                         lcd.print("     ");
                                                         lcd.setCursor(6,marker);
                                                         lcd.print(Kp);
+=======
+                                                        EEPROM.write(valueAddress, newValue);
+                                                        Kp = newValue;
+                                                        justReturned =1;
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
                                                         break;
                                                 }
                                         }
@@ -477,6 +499,7 @@ void PIDMenu(){
                                         if (digitalRead(rot_EncBTN) == HIGH && btnLetGo ==1 ) {
                                                 //EEprom write new value if its new. then break
                                                 if (newValue != value) {
+<<<<<<< HEAD
                                                         EEPROM.write(valueAddress, newValue *10);
                                                         Ki = EEPROM.read(Ki_promAddress) /10;
 
@@ -485,6 +508,13 @@ void PIDMenu(){
                                                         lcd.print("     ");
                                                         lcd.setCursor(6,marker);
                                                         lcd.print(Ki);
+=======
+                                                        EEPROM.write(valueAddress, newValue/10);
+                                                        Ki = newValue/10;
+
+                                                        justReturned =1;
+
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
                                                         break;
                                                 }
                                         }
@@ -494,7 +524,11 @@ void PIDMenu(){
                                                 lcd.print("     ");
                                                 newValue = newValue + ( rot_enc - rot_temp);
                                                 lcd.setCursor(6,marker);
+<<<<<<< HEAD
                                                 lcd.print(newValue);
+=======
+                                                lcd.print(newValue/10);
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
                                                 rot_temp=rot_enc;
                                         }
                                         if (digitalRead(rot_EncBTN) == LOW) btnLetGo=1;
@@ -516,6 +550,7 @@ void PIDMenu(){
                                         if (digitalRead(rot_EncBTN) == HIGH && btnLetGo ==1 ) {
                                                 //EEprom write new value if its new. then break
                                                 if (newValue != value) {
+<<<<<<< HEAD
                                                         EEPROM.write(valueAddress, newValue * 10);
                                                         Kd = EEPROM.read(Kd_promAddress) / 10;
 
@@ -524,6 +559,13 @@ void PIDMenu(){
                                                         lcd.print("     ");
                                                         lcd.setCursor(6,marker);
                                                         lcd.print(Kd);
+=======
+                                                        EEPROM.write(valueAddress, newValue/10);
+                                                        Kd = newValue/10;
+
+                                                        justReturned =1;
+
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
                                                         break;
                                                 }
                                         }
@@ -533,7 +575,11 @@ void PIDMenu(){
                                                 lcd.print("     ");
                                                 newValue = newValue + ( rot_enc - rot_temp);
                                                 lcd.setCursor(6,marker);
+<<<<<<< HEAD
                                                 lcd.print(newValue);
+=======
+                                                lcd.print(newValue/10);
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
                                                 rot_temp=rot_enc;
                                         }
                                         if (digitalRead(rot_EncBTN) == LOW) btnLetGo=1;

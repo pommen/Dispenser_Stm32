@@ -64,7 +64,11 @@ int rot_EncBTN = PA2;
 double Setpoint, Input, Output;
 
 //Specify the links and initial tuning parameters
+<<<<<<< HEAD
 double Kp=99.99, Ki=99.99, Kd=99.99;
+=======
+double Kp=99, Ki=99, Kd=99;
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd,P_ON_M, DIRECT);
 //DIRECT
 Bounce debouncer = Bounce();
@@ -125,7 +129,10 @@ void i2cScanner();
 #include <gotCommand.h>
 #include <runMotor.h>
 #include <showSettings.h>
+<<<<<<< HEAD
 #include <I2C_scanner.h>
+=======
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
 void setup(){
         Serial.begin(115200);
         Serial.print("Hello");
@@ -181,9 +188,15 @@ void setup(){
         delay(50); //låter DAC'en stabilisera
 
 //Läser tuning variabler från Eeprom och skriver dom
+<<<<<<< HEAD
         Kp = EEPROM.read(Kp_promAddress) /10;
         Ki = EEPROM.read(Ki_promAddress) /10;
         Kd = EEPROM.read(Kd_promAddress) /10;
+=======
+        Kp = EEPROM.read(Kp_promAddress);
+        Ki = EEPROM.read(Ki_promAddress);
+        Kd = EEPROM.read(Kd_promAddress);
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
         myPID.SetTunings(Kp, Ki, Kd);
         motorCurrent = EEPROM.read(MotorCurrent_promAddress);
         motorSpeed = EEPROM.read(MotorSpeed_promAddress);
@@ -253,4 +266,60 @@ void Display(/* arguments */) {
 
         lcd.setCursor(0,2);
         lcd.print(enc_Motor1);
+<<<<<<< HEAD
+=======
+}
+
+
+
+void i2cScanner(){
+        lcd.clear();
+        lcd.print("I2c addresses");
+        lcd.setCursor(0,1);
+        byte error, address;
+        int nDevices;
+
+
+        nDevices = 0;
+        for(address = 1; address < 127; address++ )
+        {
+                // The i2c_scanner uses the return value of
+                // the Write.endTransmisstion to see if
+                // a device did acknowledge to the address.
+                Wire.beginTransmission(address);
+                error = Wire.endTransmission();
+
+                if (error == 0)
+                {
+                        lcd.print("0x");
+                        if (address<16)
+                                lcd.print("0");
+                        lcd.print(address,HEX);
+                        lcd.print(" ");
+
+                        nDevices++;
+                }
+                else if (error==4)
+                {
+                        lcd.print("Unknown 0x");
+                        if (address<16)
+                                lcd.print("0");
+                        lcd.println(address,HEX);
+                }
+        }
+        if (nDevices == 0)
+                lcd.println("No I2C devices found\n");
+        else
+                lcd.setCursor(0,3);
+
+        lcd.print("Done Sanning");
+        delay(1000);
+        while (1) {
+                if (digitalRead(rot_EncBTN) == HIGH) {
+                        break;
+                        /* code */
+                }
+        }
+
+>>>>>>> bd115d1200da04cd67c7518dda64e173ee50fe06
 }
